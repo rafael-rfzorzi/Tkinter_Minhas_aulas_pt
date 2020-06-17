@@ -28,11 +28,25 @@ class Funcs():
         """)
         self.conn.commit(); print("Banco de dados criado")
         self.desconecta_bd()
-    def add_cliente(self):
+
+    def variaveis(self):
         self.codigo = self.codigo_entry.get()
-        self.nome =  self.nome_entry.get()
+        self.nome = self.nome_entry.get()
         self.fone = self.fone_entry.get()
         self.cidade = self.cidade_entry.get()
+    def OnDoubleClick(self, event):
+        self.limpa_cliente()
+        self.listaCli.selection()
+
+        for n in self.listaCli.selection():
+            col1, col2, col3, col4 = self.listaCli.item(n, 'values')
+            self.codigo_entry.insert(END, col1)
+            self.nome_entry.insert(END, col2)
+            self.fone_entry.insert(END, col3)
+            self.cidade_entry.insert(END, col4)
+
+    def add_cliente(self):
+        self.variaveis()
         self.conecta_bd()
 
         self.cursor.execute(""" INSERT INTO clientes (nome_cliente, telefone, cidade)
@@ -41,6 +55,14 @@ class Funcs():
         self.desconecta_bd()
         self.select_lista()
         self.limpa_cliente()
+    def deleta_cliente(self):
+        self.variaveis()
+        self.conecta_bd()
+        self.cursor.execute("""DELETE FROM clientes WHERE cod = ? """, (self.codigo))
+        self.conn.commit()
+        self.desconecta_bd()
+        self.limpa_cliente()
+        self.select_lista()
     def select_lista(self):
         self.listaCli.delete(*self.listaCli.get_children())
         self.conecta_bd()
@@ -94,7 +116,7 @@ class Application(Funcs):
         self.bt_limpar.place(relx=0.7, rely=0.1, relwidth=0.1, relheight=0.15)
         ### Criação do botao apagar
         self.bt_limpar = Button(self.frame_1, text="Apagar", bd=2, bg = '#107db2',fg = 'white'
-                                , font = ('verdana', 8, 'bold'))
+                                , font = ('verdana', 8, 'bold'), command=self.deleta_cliente)
         self.bt_limpar.place(relx=0.8, rely=0.1, relwidth=0.1, relheight=0.15)
 
         ## Criação da label e entrada do codigo
@@ -142,6 +164,7 @@ class Application(Funcs):
         self.scroolLista = Scrollbar(self.frame_2, orient='vertical')
         self.listaCli.configure(yscroll=self.scroolLista.set)
         self.scroolLista.place(relx=0.96, rely=0.1, relwidth=0.04, relheight=0.85)
+        self.listaCli.bind("<Double-1>", self.OnDoubleClick)
 
 
 Application()
