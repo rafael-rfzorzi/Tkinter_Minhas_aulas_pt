@@ -36,7 +36,6 @@ class Funcs():
         self.cidade = self.cidade_entry.get()
     def OnDoubleClick(self, event):
         self.limpa_cliente()
-        self.listaCli.selection()
 
         for n in self.listaCli.selection():
             col1, col2, col3, col4 = self.listaCli.item(n, 'values')
