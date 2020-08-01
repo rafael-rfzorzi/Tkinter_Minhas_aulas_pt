@@ -4,6 +4,8 @@ from frameGrad import GradientFrame
 from reports import Relatorios
 from funcionalidades import Funcs
 
+import pycep_correios
+
 root = tix.Tk()
 
 class Application(Funcs, Relatorios, Validadores):
@@ -19,6 +21,19 @@ class Application(Funcs, Relatorios, Validadores):
         self.select_lista()
         self.Menus()
         root.mainloop()
+    def cepCorreios(self):
+        try:
+            self.cidade_entry.delete(0, END)
+            self.lograd_entry.delete(0, END)
+            self.bairro_entry.delete(0, END)
+            zipcode = self.cep_entry.get()
+            dadosCep = pycep_correios.get_address_from_cep(zipcode)
+            print(dadosCep)
+            self.cidade_entry.insert(END, dadosCep['cidade'])
+            self.lograd_entry.insert(END, dadosCep['logradouro'])
+            self.bairro_entry.insert(END, dadosCep['bairro'])
+        except:
+            messagebox.showinfo("Titulo da janela", "Cep não encontrado")
     def tela(self):
         self.root.title("Cadastro de Clientes")
         self.root.configure(background= '#1e3743')
@@ -101,22 +116,23 @@ class Application(Funcs, Relatorios, Validadores):
         self.nome_entry.place(relx=0.08, rely=0.35, relwidth=0.5)
 
         ## Criação da label e entrada do cep
-        self.lb_nome = Button(self.aba1, text="CEP", bg='#dfe3ee', fg='#107db2')
-        self.lb_nome.place(relx=0.65, rely=0.35)
+        self.lb_cep = Button(self.aba1, text="CEP", bg='#dfe3ee', fg='#107db2',
+                             command= self.cepCorreios)
+        self.lb_cep.place(relx=0.65, rely=0.35)
 
-        self.nome_entry = Entry(self.aba1)
-        self.nome_entry.place(relx=0.75, rely=0.35, relwidth=0.2)
+        self.cep_entry = Entry(self.aba1)
+        self.cep_entry.place(relx=0.75, rely=0.35, relwidth=0.2)
 
         ## Criação da label e entrada do telefone
-        self.lb_nome = Label(self.aba1, text="Telefone", bg= '#dfe3ee', fg = '#107db2')
-        self.lb_nome.place(relx=0.05, rely=0.55)
+        self.lb_fone = Label(self.aba1, text="Telefone", bg= '#dfe3ee', fg = '#107db2')
+        self.lb_fone.place(relx=0.05, rely=0.55)
 
         self.fone_entry = Entry(self.aba1)
         self.fone_entry.place(relx=0.15, rely=0.55, relwidth=0.3)
 
         ## Criação da label e entrada da cidade
-        self.lb_nome = Label(self.aba1, text="Cidade", bg= '#dfe3ee', fg = '#107db2')
-        self.lb_nome.place(relx=0.5, rely=0.55)
+        self.lb_cidade = Label(self.aba1, text="Cidade", bg= '#dfe3ee', fg = '#107db2')
+        self.lb_cidade.place(relx=0.5, rely=0.55)
 
         self.cidade_entry = Entry(self.aba1)
         self.cidade_entry.place(relx=0.6, rely=0.55, relwidth=0.3)
