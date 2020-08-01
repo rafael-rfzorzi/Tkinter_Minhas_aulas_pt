@@ -3,7 +3,6 @@ from validEntry import Validadores
 from frameGrad import GradientFrame
 from reports import Relatorios
 from funcionalidades import Funcs
-from placeHolder import EntPlaceHold
 
 root = tix.Tk()
 
@@ -84,7 +83,8 @@ class Application(Funcs, Relatorios, Validadores):
         ### Criação do botao apagar
         self.bt_apagar = Button(self.aba1, text="Apagar", bd=2, bg = '#107db2',fg = 'white'
                                 , font = ('verdana', 8, 'bold'), command=self.deleta_cliente)
-        self.bt_apagar.place(relx=0.8, rely=0.1, relwidth=0.1, relheight=0.15)
+        self.bt_apagar.place(relx=0.8, rely=0.1,
+                             relwidth=0.1, relheight=0.15)
 
         ## Criação da label e entrada do codigo
         self.lb_codigo = Label(self.aba1, text = "Código", bg= '#dfe3ee', fg = '#107db2')
@@ -95,24 +95,45 @@ class Application(Funcs, Relatorios, Validadores):
 
         ## Criação da label e entrada do nome
         self.lb_nome = Label(self.aba1, text="Nome", bg= '#dfe3ee', fg = '#107db2')
-        self.lb_nome.place(relx=0.05, rely=0.35)
+        self.lb_nome.place(relx=0.01, rely=0.35)
 
-        self.nome_entry = EntPlaceHold(self.aba1, 'Digite o nome do cliente')
-        self.nome_entry.place(relx=0.05, rely=0.45, relwidth=0.8)
+        self.nome_entry = Entry(self.aba1)
+        self.nome_entry.place(relx=0.08, rely=0.35, relwidth=0.5)
+
+        ## Criação da label e entrada do cep
+        self.lb_nome = Button(self.aba1, text="CEP", bg='#dfe3ee', fg='#107db2')
+        self.lb_nome.place(relx=0.65, rely=0.35)
+
+        self.nome_entry = Entry(self.aba1)
+        self.nome_entry.place(relx=0.75, rely=0.35, relwidth=0.2)
 
         ## Criação da label e entrada do telefone
         self.lb_nome = Label(self.aba1, text="Telefone", bg= '#dfe3ee', fg = '#107db2')
-        self.lb_nome.place(relx=0.05, rely=0.6)
+        self.lb_nome.place(relx=0.05, rely=0.55)
 
         self.fone_entry = Entry(self.aba1)
-        self.fone_entry.place(relx=0.05, rely=0.7, relwidth=0.4)
+        self.fone_entry.place(relx=0.15, rely=0.55, relwidth=0.3)
 
         ## Criação da label e entrada da cidade
         self.lb_nome = Label(self.aba1, text="Cidade", bg= '#dfe3ee', fg = '#107db2')
-        self.lb_nome.place(relx=0.5, rely=0.6)
+        self.lb_nome.place(relx=0.5, rely=0.55)
 
         self.cidade_entry = Entry(self.aba1)
-        self.cidade_entry.place(relx=0.5, rely=0.7, relwidth=0.4)
+        self.cidade_entry.place(relx=0.6, rely=0.55, relwidth=0.3)
+
+        ## Criação da label e entrada do logradouro
+        self.lb_lograd = Label(self.aba1, text="Endereço", bg='#dfe3ee', fg='#107db2')
+        self.lb_lograd.place(relx=0.05, rely=0.75)
+
+        self.lograd_entry = Entry(self.aba1)
+        self.lograd_entry.place(relx=0.15, rely=0.75, relwidth=0.3)
+
+        ## Criação da label e entrada da bairro
+        self.lb_bairro = Label(self.aba1, text="Bairro", bg='#dfe3ee', fg='#107db2')
+        self.lb_bairro.place(relx=0.5, rely=0.75)
+
+        self.bairro_entry = Entry(self.aba1)
+        self.bairro_entry.place(relx=0.6, rely=0.75, relwidth=0.3)
 
         #### drop down button
         self.Tipvar = StringVar()
@@ -122,7 +143,6 @@ class Application(Funcs, Relatorios, Validadores):
         self.popupMenu.place(relx= 0.1, rely=0.1, relwidth=0.2, relheight=0.2)
         self.estado_civil = self.Tipvar.get()
         print(self.estado_civil)
-
     def lista_frame2(self):
         self.listaCli = ttk.Treeview(self.frame_2, height=3,
                                      column=("col1", "col2", "col3", "col4"))
@@ -168,6 +188,8 @@ class Application(Funcs, Relatorios, Validadores):
         self.root2.grab_set()
     def validaEntradas(self):
         ### Naming input validators
+
         self.vcmd2 = (self.root.register(self.validate_entry2), "%P")
+
 
 Application()

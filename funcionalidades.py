@@ -69,7 +69,7 @@ class Funcs():
     def deleta_cliente(self):
         self.variaveis()
         self.conecta_bd()
-        self.cursor.execute("""DELETE FROM clientes WHERE cod = ? """, (self.codigo))
+        self.cursor.execute("""DELETE FROM clientes WHERE cod = ? """, (self.codigo,))
         self.conn.commit()
         self.desconecta_bd()
         self.limpa_cliente()

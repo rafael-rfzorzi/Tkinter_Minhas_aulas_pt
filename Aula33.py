@@ -3,9 +3,9 @@ from validEntry import Validadores
 from frameGrad import GradientFrame
 from reports import Relatorios
 from funcionalidades import Funcs
-from placeHolder import EntPlaceHold
 
 root = tix.Tk()
+
 
 class Application(Funcs, Relatorios, Validadores):
     def __init__(self):
@@ -19,6 +19,7 @@ class Application(Funcs, Relatorios, Validadores):
         self.montaTabelas()
         self.select_lista()
         self.Menus()
+        self.repeater()
         root.mainloop()
     def tela(self):
         self.root.title("Cadastro de Clientes")
@@ -53,10 +54,13 @@ class Application(Funcs, Relatorios, Validadores):
         self.canvas_bt.place(relx= 0.19, rely= 0.08, relwidth= 0.22, relheight=0.19)
 
         ### Criação do botao limpar
+
         self.bt_limpar = Button(self.aba1, text= "Limpar", bd=2, bg = '#107db2',fg = 'white',
-                                activebackground='#108ecb', activeforeground="white"
-                                , font = ('verdana', 8, 'bold'), command= self.limpa_cliente)
+                            activebackground='#108ecb', activeforeground="white"
+                            , font = ('verdana', 8, 'bold'), command= self.limpa_cliente)
         self.bt_limpar.place(relx= 0.2, rely=0.1, relwidth=0.1, relheight= 0.15)
+
+
         ### Criação do botao buscar
         self.bt_buscar = Button(self.aba1, text="Buscar", bd=2, bg = '#107db2',fg = 'white'
                                 , font = ('verdana', 8, 'bold'), command = self.janela2)
@@ -97,7 +101,7 @@ class Application(Funcs, Relatorios, Validadores):
         self.lb_nome = Label(self.aba1, text="Nome", bg= '#dfe3ee', fg = '#107db2')
         self.lb_nome.place(relx=0.05, rely=0.35)
 
-        self.nome_entry = EntPlaceHold(self.aba1, 'Digite o nome do cliente')
+        self.nome_entry = Entry(self.aba1)
         self.nome_entry.place(relx=0.05, rely=0.45, relwidth=0.8)
 
         ## Criação da label e entrada do telefone
@@ -122,7 +126,6 @@ class Application(Funcs, Relatorios, Validadores):
         self.popupMenu.place(relx= 0.1, rely=0.1, relwidth=0.2, relheight=0.2)
         self.estado_civil = self.Tipvar.get()
         print(self.estado_civil)
-
     def lista_frame2(self):
         self.listaCli = ttk.Treeview(self.frame_2, height=3,
                                      column=("col1", "col2", "col3", "col4"))
@@ -168,6 +171,10 @@ class Application(Funcs, Relatorios, Validadores):
         self.root2.grab_set()
     def validaEntradas(self):
         ### Naming input validators
+
         self.vcmd2 = (self.root.register(self.validate_entry2), "%P")
+
+
+
 
 Application()
