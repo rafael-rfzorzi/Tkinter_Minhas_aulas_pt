@@ -1,5 +1,5 @@
 # Tkinter_Minhas_aulas_pt
-Curso Tkinter youtube
+Curso de Tkinter criado por mim e disponibilizado no youtube
 
 Conteudo do Curso
 
