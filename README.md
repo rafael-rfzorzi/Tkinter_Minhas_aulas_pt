@@ -28,7 +28,7 @@ Conteudo do Curso
 23 - Multiplas janelas
 24 - Efeito gradiente no frame
 25 - Validando entradas numéricas
-26 - Processos de bind
+26 - Processos de bind.
 
 Siga minha playlist de tkinter no youtube, me critique , me elogie, interaja rsrs
 
